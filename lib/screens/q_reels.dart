@@ -21,7 +21,7 @@ class QReels extends StatefulWidget {
 }
 
 class _QReelsState extends State<QReels> {
-  final PageController _pageController = PageController(initialPage: 2);
+  final PageController _pageController = PageController(initialPage: 0);
   int currentIndex = 0;
   final _controller = Get.find<ReelsController>();
 
@@ -85,10 +85,10 @@ class _QReelsState extends State<QReels> {
                   itemCount: _controller.videoList.length,
                   itemBuilder: (context, index) => VideoReels(index: index),
                 ),
-                Image.network(
+                /*Image.network(
                   "https://wallpapercave.com/wp/wp3246753.jpg",
                   fit: BoxFit.fill,
-                ),
+                ),*/
                 Obx(() => Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
@@ -99,7 +99,7 @@ class _QReelsState extends State<QReels> {
                         viewportFraction: 1,
                         height: double.infinity, // Full-screen height
                         //initialPage: 0,
-                        enableInfiniteScroll: false,
+                        enableInfiniteScroll: true,
                         onPageChanged: (index, reason) {
                           setState(() {
                             //_currentIndex = index;
