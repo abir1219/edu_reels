@@ -22,6 +22,7 @@ class QReels extends StatefulWidget {
 
 class _QReelsState extends State<QReels> {
   final PageController _pageController = PageController(initialPage: 0);
+  final PageController _videoPageController = PageController(initialPage: 0);
   int currentIndex = 0;
   final _controller = Get.find<ReelsController>();
 
@@ -33,10 +34,10 @@ class _QReelsState extends State<QReels> {
     _controller.videoList.add(Videos(videoUrl: ""));
     // _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
     // _pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
-    /*Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (currentIndex < _controller.videoList.length) {
         currentIndex++;
-        pageController.animateToPage(
+        _videoPageController.animateToPage(
           currentIndex,
           duration: const Duration(milliseconds: 350),
           curve: Curves.easeIn,
@@ -44,7 +45,7 @@ class _QReelsState extends State<QReels> {
       } else {
         currentIndex = _controller.videoList.length;
       }
-    });*/
+    });
   }
 
   @override
@@ -55,7 +56,7 @@ class _QReelsState extends State<QReels> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Index => ${_controller.index}");
+    debugPrint("Index => ${_controller.videoIndex}");
 
 
     return SafeArea(
@@ -73,17 +74,23 @@ class _QReelsState extends State<QReels> {
               // physics: ClampingScrollPhysics(),
               children: [
                 PageView.builder(
+                  controller: _videoPageController,
                   scrollDirection: Axis.vertical,
                   onPageChanged: (value) {
                     debugPrint("<<<<<Index>>>>>>>> $value  &&& ${_controller.videoList.length}");
                     if (value == _controller.videoList.length-1) {
+                      _controller.videoIndex.value = value-1;
                       _pageController.nextPage(
                           duration: const Duration(milliseconds: 10),
                           curve: Curves.ease);
+                    }else{
+                      _controller.videoIndex.value = value;
                     }
+                    debugPrint("VideoIndex =>>>>> $value");
+
                   },
                   itemCount: _controller.videoList.length,
-                  itemBuilder: (context, index) => VideoReels(index: index),
+                  itemBuilder: (context, index) => Obx(() => VideoReels(index: _controller.videoIndex.value)),
                 ),
                 /*Image.network(
                   "https://wallpapercave.com/wp/wp3246753.jpg",

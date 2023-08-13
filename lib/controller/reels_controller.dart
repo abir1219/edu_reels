@@ -10,7 +10,7 @@ class ReelsController extends GetxController {
   RxList<Mcq> mcqList = <Mcq>[].obs;
 
 
-  RxInt index = 0.obs;
+  RxInt videoIndex = 0.obs;
 
   @override
   void onInit() {

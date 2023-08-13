@@ -1,5 +1,5 @@
 import 'package:edu_reels/binding/controller_binding.dart';
-import 'package:edu_reels/screens/q_reels.dart';
+import 'package:edu_reels/screens/reels_mcq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         initialBinding: ControllerBinding(),
         debugShowCheckedModeBanner: false,
-        home: const QReels(),
+        home: ReelsMcq(),//const QReels(),
       );
     },);
   }
